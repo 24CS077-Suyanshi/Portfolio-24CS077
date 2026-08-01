@@ -1,21 +1,28 @@
-import "./App.css";
-import Header from "./components/Header";
-import Navbar from "./components/Navbar";
-import About from "./components/About";
-import Skills from "./components/Skills";
-import Footer from "./components/Footer";
-
+import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
+import NotFound from './components/NotFound';
 
 function App() {
   const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js", "Git"];
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="app">
+    <div className={darkMode ? "app dark" : "app"}>
       <Header name="Suyanshi Patel" themeColor="#0f766e" />
-      <Navbar />
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       <main className="main-content">
-        <About course="Computer Science Engineering" />
-        <Skills skillList={skills} />
+        <Routes>
+          <Route path="/" element={<Home course="Computer Science Engineering" skillList={skills} />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
       <Footer email="suyanshi@gmail.com" />
     </div>

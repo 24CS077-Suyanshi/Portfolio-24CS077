@@ -1,15 +1,157 @@
-* {
+body {
   margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #e5e7eb;
+  color: #1e293b;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  background: #f4f4f4;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #111827;
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  background: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* Hero / Header */
+.hero {
+  background: linear-gradient(135deg, #0f2027, #1a3a6e, #2563eb);
+  border-radius: 16px;
+  padding: 48px 24px;
+  text-align: center;
+  color: white;
+  margin: 0 0 16px 0;
+}
+
+.hero .badge {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  margin: 8px 0;
+}
+
+.hero h2 {
+  font-weight: 600;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+/* NavBar */
+.navbar {
+  background: #0a0f1c;
+  border-radius: 12px;
+  margin: 0 0 16px 0;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar a {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.navbar a:hover,
+.navbar a.active {
+  color: #60a5fa;
+}
+
+.navbar button {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #1e3a5f;
+  color: #93c5fd;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 0 0 16px 0;
+}
+
+.card h2 {
+  color: #1d4ed8;
+  margin-top: 0;
+}
+
+.card p {
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* Skill pills */
+.skill-pill {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  margin: 4px 8px 4px 0;
+}
+
+/* Footer */
+.footer {
+  background: #0a0f1c;
+  border-radius: 16px;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+  color: #94a3b8;
+}
+
+.card input[type="text"] {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.card button {
+  background: #0369a1;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Dark mode override */
+.app.dark {
+  background: #0d1321;
+}
+
+.app.dark .card {
+  background: #131c31;
+  border: 1px solid #1e293b;
+  color: #e2e8f0;
+}
+
+.app.dark .card h2 {
+  color: #60a5fa;
+}
+
+.app.dark .card p {
+  color: #cbd5e1;
 }
