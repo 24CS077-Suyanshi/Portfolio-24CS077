@@ -14,3 +14,12 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Practical 3 – API Integration
+The Projects page now fetches live repository data from the GitHub REST API
+(`https://api.github.com/users/24CS077-Suyanshi/repos`).
+
+Features:
+- Loading spinner while fetching
+- Error message with Retry button on failure
+- Search/filter input for repository names
+- Displays repository name, link, and star count
