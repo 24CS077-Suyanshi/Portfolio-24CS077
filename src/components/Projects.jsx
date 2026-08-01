@@ -1,4 +1,4 @@
-function Projects() {
+/*function Projects() {
   const projectList = [
     {
       title: "Student Portfolio Website",
@@ -24,6 +24,80 @@ function Projects() {
           <p style={{ margin: 0 }}>{project.description}</p>
         </div>
       ))}
+    </div>
+  );
+}
+
+export default Projects;*/
+
+import { useState, useEffect } from 'react';
+
+function Projects() {
+  const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [search, setSearch] = useState('');
+
+  const fetchRepos = () => {
+    setLoading(true);
+    setError(null);
+    fetch('https://api.github.com/users/24CS077-Suyanshi/repos')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch repositories');
+        return res.json();
+      })
+      .then((data) => setRepos(data))
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchRepos();
+  }, []);
+
+  const filteredRepos = repos.filter((repo) =>
+    repo.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="card" id="projects">
+      <h2>Projects</h2>
+      <p>Repositories fetched live from the GitHub API.</p>
+
+      {!loading && !error && (
+        <input
+          type="text"
+          placeholder="Search repositories..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{ padding: '8px', width: '100%', maxWidth: '400px', marginBottom: '16px' }}
+        />
+      )}
+
+      {loading && <p>Loading repositories...</p>}
+
+      {error && (
+        <div>
+          <p style={{ color: 'red' }}>Error: {error}</p>
+          <button onClick={fetchRepos}>Retry</button>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <div>
+          {filteredRepos.length === 0 && <p>No repositories found.</p>}
+          {filteredRepos.map((repo) => (
+            <div key={repo.id} style={{ marginBottom: '16px' }}>
+              <h3 style={{ marginBottom: '4px' }}>
+                <a href={repo.html_url} target="_blank" rel="noreferrer">
+                  {repo.name}
+                </a>
+              </h3>
+              <p style={{ margin: 0 }}>⭐ {repo.stargazers_count} stars</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
