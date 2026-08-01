@@ -31,6 +31,8 @@
 export default Projects;*/
 
 import { useState, useEffect } from 'react';
+import Spinner from './Spinner';
+import ErrorMessage from './ErrorMessage';
 
 function Projects() {
   const [repos, setRepos] = useState([]);
@@ -55,6 +57,9 @@ function Projects() {
     fetchRepos();
   }, []);
 
+  if (loading) return <Spinner />;
+  if (error) return <ErrorMessage message={error} onRetry={fetchRepos} />;
+
   const filteredRepos = repos.filter((repo) =>
     repo.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -64,40 +69,26 @@ function Projects() {
       <h2>Projects</h2>
       <p>Repositories fetched live from the GitHub API.</p>
 
-      {!loading && !error && (
-        <input
-          type="text"
-          placeholder="Search repositories..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{ padding: '8px', width: '100%', maxWidth: '400px', marginBottom: '16px' }}
-        />
-      )}
+      <input
+        type="text"
+        placeholder="Search repositories..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{ padding: '8px', width: '100%', maxWidth: '400px', marginBottom: '16px' }}
+      />
 
-      {loading && <p>Loading repositories...</p>}
+      {filteredRepos.length === 0 && <p>No repositories found.</p>}
 
-      {error && (
-        <div>
-          <p style={{ color: 'red' }}>Error: {error}</p>
-          <button onClick={fetchRepos}>Retry</button>
+      {filteredRepos.map((repo) => (
+        <div key={repo.id} style={{ marginBottom: '16px' }}>
+          <h3 style={{ marginBottom: '4px' }}>
+            <a href={repo.html_url} target="_blank" rel="noreferrer">
+              {repo.name}
+            </a>
+          </h3>
+          <p style={{ margin: 0 }}>⭐ {repo.stargazers_count} stars</p>
         </div>
-      )}
-
-      {!loading && !error && (
-        <div>
-          {filteredRepos.length === 0 && <p>No repositories found.</p>}
-          {filteredRepos.map((repo) => (
-            <div key={repo.id} style={{ marginBottom: '16px' }}>
-              <h3 style={{ marginBottom: '4px' }}>
-                <a href={repo.html_url} target="_blank" rel="noreferrer">
-                  {repo.name}
-                </a>
-              </h3>
-              <p style={{ margin: 0 }}>⭐ {repo.stargazers_count} stars</p>
-            </div>
-          ))}
-        </div>
-      )}
+      ))}
     </div>
   );
 }
